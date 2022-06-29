@@ -17,7 +17,13 @@ struct ContentView: View {
     private var items: FetchedResults<Item>
 
     var body: some View {
+        
+     
+            
+            
+        
         NavigationView {
+           
             List {
                 ForEach(items) { item in
                     NavigationLink {
@@ -29,6 +35,18 @@ struct ContentView: View {
                 .onDelete(perform: deleteItems)
             }
             .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text("astroPitch()")
+                        .font(.largeTitle)
+                        .fontWeight(.heavy)
+                        .multilineTextAlignment(.leading)
+                        
+                        
+                        
+                }
+                
+                
+                
                 ToolbarItem(placement: .navigationBarTrailing) {
                     EditButton()
                 }
@@ -36,7 +54,9 @@ struct ContentView: View {
                     Button(action: addItem) {
                         Label("Add Item", systemImage: "plus")
                     }
+                    
                 }
+               
             }
             Text("Select an item")
         }
@@ -83,6 +103,9 @@ private let itemFormatter: DateFormatter = {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        Group {
+            ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+           
+        }
     }
 }
