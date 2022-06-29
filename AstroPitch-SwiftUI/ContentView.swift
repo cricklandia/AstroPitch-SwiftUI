@@ -36,7 +36,7 @@ struct ContentView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .principal) {
-                    Text("astroPitch(){?!@#}")
+                    Text("astroPitch(){?!@#$}")
                         .font(.largeTitle)
                         .fontWeight(.heavy)
                         .multilineTextAlignment(.leading)
