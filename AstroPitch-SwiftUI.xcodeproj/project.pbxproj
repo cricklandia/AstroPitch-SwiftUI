@@ -13,6 +13,8 @@
 		48498B01286CE1790015E2E6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 48498B00286CE1790015E2E6 /* Preview Assets.xcassets */; };
 		48498B03286CE1790015E2E6 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48498B02286CE1790015E2E6 /* Persistence.swift */; };
 		48498B06286CE1790015E2E6 /* AstroPitch_SwiftUI.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 48498B04286CE1790015E2E6 /* AstroPitch_SwiftUI.xcdatamodeld */; };
+		48498B0D286CF05B0015E2E6 /* Synth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48498B0C286CF05B0015E2E6 /* Synth.swift */; };
+		48498B0F286CF12D0015E2E6 /* MathExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48498B0E286CF12D0015E2E6 /* MathExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +25,8 @@
 		48498B00286CE1790015E2E6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		48498B02286CE1790015E2E6 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		48498B05286CE1790015E2E6 /* AstroPitch_SwiftUI.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AstroPitch_SwiftUI.xcdatamodel; sourceTree = "<group>"; };
+		48498B0C286CF05B0015E2E6 /* Synth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Synth.swift; sourceTree = "<group>"; };
+		48498B0E286CF12D0015E2E6 /* MathExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MathExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +61,8 @@
 			children = (
 				48498AF9286CE1770015E2E6 /* AstroPitch_SwiftUIApp.swift */,
 				48498AFB286CE1770015E2E6 /* ContentView.swift */,
+				48498B0C286CF05B0015E2E6 /* Synth.swift */,
+				48498B0E286CF12D0015E2E6 /* MathExtensions.swift */,
 				48498AFD286CE1790015E2E6 /* Assets.xcassets */,
 				48498B02286CE1790015E2E6 /* Persistence.swift */,
 				48498B04286CE1790015E2E6 /* AstroPitch_SwiftUI.xcdatamodeld */,
@@ -146,7 +152,9 @@
 				48498B03286CE1790015E2E6 /* Persistence.swift in Sources */,
 				48498AFC286CE1770015E2E6 /* ContentView.swift in Sources */,
 				48498B06286CE1790015E2E6 /* AstroPitch_SwiftUI.xcdatamodeld in Sources */,
+				48498B0D286CF05B0015E2E6 /* Synth.swift in Sources */,
 				48498AFA286CE1770015E2E6 /* AstroPitch_SwiftUIApp.swift in Sources */,
+				48498B0F286CF12D0015E2E6 /* MathExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
