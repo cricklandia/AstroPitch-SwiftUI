@@ -7,6 +7,7 @@
 //
 import AVFoundation
 
+
 let TWO_PI = Float.pi * 2
 let PI = Float.pi
 
@@ -44,6 +45,8 @@ class Synth {
     let pitch10: Float = 220//, 440, 880]
     let pitch11: Float = 233.08//, 466.16, 932.33]
     let pitch12: Float = 246.94//, 493.88, 987.77]
+    
+   
     
     lazy var CPentatonic: [Float] = {
         return C + D + E + FS + A
@@ -131,21 +134,25 @@ class Synth {
         self.phaseIncrement = (TWO_PI / sampleRate) * frequency
     }
     
-    func startEngine(sign: Bool) {
+    func startEngine(signs: Dictionary<String, Bool>) {
         do {
             try self.engine.start()
             self.isRunning = true
-            Timer.scheduledTimer(withTimeInterval: randomInterval, repeats: true) { (timer) in
-                if !self.isRunning { timer.invalidate(); return }
-                if sign {
-                    self.frequency = self.pitch1//self.CPentatonic.randomElement()!
-                } else {
-                    self.frequency = 1046.5
-                }
-                //self.frequency = self.pitch1//self.CPentatonic.randomElement()!
-                self.signal =  self.randomSignal
-                self.updatePhaseIncrement()
-            }
+            print(signs)
+//            if (signs["Aries"] == true){
+//            self.frequency = self.pitch1
+//            }
+//            Timer.scheduledTimer(withTimeInterval: randomInterval, repeats: true) { (timer) in
+//                if !self.isRunning { timer.invalidate(); return }
+//                if sign {
+//                    self.frequency = self.pitch1//self.CPentatonic.randomElement()!
+//                } else {
+//                    self.frequency = 1046.5
+//                }
+//                //self.frequency = self.pitch1//self.CPentatonic.randomElement()!
+//                self.signal =  self.randomSignal
+//                self.updatePhaseIncrement()
+//            }
         } catch {
             self.isRunning = false
             print("Unable to start engine due to error: \(error)")
@@ -163,7 +170,9 @@ class Synth {
         if isRunning {
             stopEngine()
         } else {
-            startEngine(sign: true)
+            //startEngine(sign: true)
+            startEngine(signs: signs)
+            print("else start the engine", signs)
         }
     }
 }

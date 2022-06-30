@@ -9,12 +9,12 @@ import SwiftUI
 import CoreData
 
 struct ContentView: View {
-    @Environment(\.managedObjectContext) private var viewContext
-
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
-        animation: .default)
-    private var items: FetchedResults<Item>
+//    @Environment(\.managedObjectContext) private var viewContext
+//
+//    @FetchRequest(
+//        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
+//        animation: .default)
+//    private var items: FetchedResults<Item>
     
     var synth = Synth()
     let frases = [
@@ -38,7 +38,7 @@ struct ContentView: View {
     @State var switch12 = false
     
     //dictionary
-    @State var zodiac = [ "Aries": false,
+    @State var zoDictionary: Dictionary = [ "Aries": false,
                           "Taurus": false,
                           "Gemini": false,
                           "Cancer": false,
@@ -50,37 +50,23 @@ struct ContentView: View {
                           "Capricorn": false,
                           "Aquarius": false,
                           "Pisces": false]
+    
 
     var body: some View {
         
         VStack{
-        
         Text("astroPitch()")
             .font(.largeTitle)
             .fontWeight(.heavy)
             .foregroundColor(Color.white)
-            .frame(maxWidth: .infinity, maxHeight: 50.0)
+            //.frame(maxWidth: .infinity, maxHeight: 50.0)
             .background(Color.black)
             
-        
-       
-          
-            
-       
-            
-              
+
             
             HStack{
                 
-             
-       
-        
-     
-                
-
-       
-           
-            VStack{
+            VStack{ //left col
               
                 
                 
@@ -127,81 +113,77 @@ struct ContentView: View {
                 .padding(6.0)
                 .border(Color.white, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
             }//end VSTACK1
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color.black)
+            //.frame(maxWidth: .infinity, maxHeight: .infinity)
+            //.background(Color.black)
           
             
-            VStack{
-        
-                Toggle(isOn: $switch7) {
-                    Text("Libra")
-                        .foregroundColor(Color.white)
-                }
-                .padding(6.0)
-                .border(Color.white, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
-                Toggle(isOn: $switch8) {
-                    Text("Scorpio")
-                        .foregroundColor(Color.blue)
-                }
-                .padding(6.0)
-                .border(Color.white, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
-                Toggle(isOn: $switch9) {
-                    Text("Sagittarius")
-                        .foregroundColor(Color.red)
-                        .lineLimit(1)
+                VStack{ //right col
+                    
+                    Toggle(isOn: $switch7) {
+                        Text("Libra")
+                            .foregroundColor(Color.white)
+                    }
+                    .padding(6.0)
+                    .border(Color.white, width: 1)
+                    Toggle(isOn: $switch8) {
+                        Text("Scorpio")
+                            .foregroundColor(Color.blue)
+                    }
+                    .padding(6.0)
+                    .border(Color.white, width: 1)
+                    Toggle(isOn: $switch9) {
+                        Text("Sagittarius")
+                            .foregroundColor(Color.red)
+                            .lineLimit(1)
                         
-                }
-                .padding(6.0)
-                .border(Color.white, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
-                
-                Toggle(isOn: $switch10) {
-                    Text("Capricorn")
-                        .lineLimit(1)
-                        .foregroundColor(Color.green)
-                }
-                .padding(6.0)
-                .border(Color.white, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
-                Toggle(isOn: $switch11) {
-                    Text("Aquarius")
-                        .foregroundColor(Color.white)
-                }
-                .padding(6.0)
-                .border(Color.white, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
+                    }
+                    .padding(6.0)
+                    .border(Color.white, width: 1)
+                    
+                    Toggle(isOn: $switch10) {
+                        Text("Capricorn")
+                            .lineLimit(1)
+                            .foregroundColor(Color.green)
+                    }
+                    .padding(6.0)
+                    .border(Color.white, width: 1)
+                    Toggle(isOn: $switch11) {
+                        Text("Aquarius")
+                            .foregroundColor(Color.white)
+                    }
+                    .padding(6.0)
+                    .border(Color.white, width: 1)
                     Toggle(isOn: $switch12) {
                         Text("Pisces")
                             .foregroundColor(Color.blue)
                     }
                     .padding(6.0)
-                    .border(Color.white, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
-            }//end VSTACK2
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color.black)
+                    .border(Color.white, width: 1)
+                }//end VSTACK2
+                //.frame(maxWidth: .infinity, maxHeight: .infinity)
+                //.background(Color.black)
         }//end HSTACK
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.black)
-        
-  
-        
-        
-        
-        
-        
-        
-        Button(action: {
-            zodiac["Aries"] = switch1
-            zodiac["Taurus"] = switch2
-            zodiac["Gemini"] = switch3
-            zodiac["Cancer"] = switch4
-            zodiac["Leo"] = switch5
-            zodiac["Virgo"] = switch6
-            zodiac["Libra"] = switch7
-            zodiac["Scorpio"] = switch8
-            zodiac["Sagittarius"] = switch9
-            zodiac["Capricorn"] = switch10
-            zodiac["Aquarius"] = switch11
-            zodiac["Pisces"] = switch12
+        Spacer()
             
-            self.synth.toggleEngine(signs: zodiac)
+  
+        Button(action: {
+            
+            zoDictionary["Aries"] = switch1
+            zoDictionary["Taurus"] = switch2
+            zoDictionary["Gemini"] = switch3
+            zoDictionary["Cancer"] = switch4
+            zoDictionary["Leo"] = switch5
+            zoDictionary["Virgo"] = switch6
+            zoDictionary["Libra"] = switch7
+            zoDictionary["Scorpio"] = switch8
+            zoDictionary["Sagittarius"] = switch9
+            zoDictionary["Capricorn"] = switch10
+            zoDictionary["Aquarius"] = switch11
+            zoDictionary["Pisces"] = switch12
+            
+            self.synth.toggleEngine(signs: zoDictionary)
             self.isPlaying.toggle()
             
             
@@ -228,27 +210,54 @@ struct ContentView: View {
                 .background(LinearGradient(gradient: Gradient(colors: [.red, .blue]), startPoint: .leading, endPoint: .trailing))
                 .font(.largeTitle)
                 .cornerRadius(20)
-                
             }
-        }
-        .padding(/*@START_MENU_TOKEN@*/.bottom, 100.0/*@END_MENU_TOKEN@*/)
-       
+        }//end BUTTON
+        //.padding(.bottom, 100.0)
+        
         
         if isPlaying {
             Text(frases.randomElement()!)
             .italic()
             .foregroundColor(.gray)
         }
-        
-        }//end HSTACK
-        .accentColor(Color.blue)
+            Spacer()
+        }//end big VSTACK
+        .accentColor(Color.black)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.black)
-    }//end big VSTACK
-       
-}
- 
+        
+    }//var body: some View
     
+    
+       
+}//end struct ContentView: View
+ 
+struct ContentView2: View {
+
+    var synth2 = Synth()
+    
+    
+
+    var body: some View {
+        
+        VStack{
+        Text("astroPitch() Screen 2")
+            .font(.largeTitle)
+            .fontWeight(.heavy)
+            .foregroundColor(Color.white)
+            //.frame(maxWidth: .infinity, maxHeight: 50.0)
+            .background(Color.black)
+            
+        }
+        .accentColor(Color.black)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.black)
+        
+    }//var body: some View
+    
+    
+       
+}//end struct ContentView2: View
 
 
 
@@ -256,7 +265,8 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            ContentView().previewLayout(.sizeThatFits).previewDevice("iPhone 13").preferredColorScheme(.dark).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+            ContentView()
+            ContentView2()
            
         }
     }
