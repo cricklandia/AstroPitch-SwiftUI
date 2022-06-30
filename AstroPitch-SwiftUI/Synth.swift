@@ -131,13 +131,18 @@ class Synth {
         self.phaseIncrement = (TWO_PI / sampleRate) * frequency
     }
     
-    func startEngine() {
+    func startEngine(sign: Bool) {
         do {
             try self.engine.start()
             self.isRunning = true
             Timer.scheduledTimer(withTimeInterval: randomInterval, repeats: true) { (timer) in
                 if !self.isRunning { timer.invalidate(); return }
-                self.frequency = pitch1//self.CPentatonic.randomElement()!
+                if sign {
+                    self.frequency = self.pitch1//self.CPentatonic.randomElement()!
+                } else {
+                    self.frequency = 1046.5
+                }
+                //self.frequency = self.pitch1//self.CPentatonic.randomElement()!
                 self.signal =  self.randomSignal
                 self.updatePhaseIncrement()
             }
@@ -152,11 +157,13 @@ class Synth {
         self.isRunning = false
     }
     
-    func toggleEngine(_: bool ) {
+    func toggleEngine(signs: Dictionary<String, Bool>) {
+        print("We made it to toggleEngine with our variable as ", signs)
+        
         if isRunning {
             stopEngine()
         } else {
-            startEngine()
+            startEngine(sign: true)
         }
     }
 }

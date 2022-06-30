@@ -37,10 +37,18 @@ struct ContentView: View {
     @State var switch12 = false
     
     //dictionary
-    
-    
-    
-    
+    @State var zodiac = [ "Aries": false,
+                          "Taurus": false,
+                          "Gemini": false,
+                          "Cancer": false,
+                          "Leo": false,
+                          "Virgo": false,
+                          "Libra": false,
+                          "Scorpio": false,
+                          "Sagittarius": false,
+                          "Capricorn": false,
+                          "Aquarius": false,
+                          "Pisces": false]
 
     var body: some View {
         
@@ -51,7 +59,6 @@ struct ContentView: View {
         VStack{
             Toggle(isOn: $switch1) {
                 Text("Aries")
-                
             }
             Toggle(isOn: $switch2) {
                 Text("Taurus")
@@ -92,13 +99,23 @@ struct ContentView: View {
           
             }
             
-        }
-        
+        }        
      
         Button(action: {
+            zodiac["Aries"] = switch1
+            zodiac["Taurus"] = switch2
+            zodiac["Gemini"] = switch3
+            zodiac["Cancer"] = switch4
+            zodiac["Leo"] = switch5
+            zodiac["Virgo"] = switch6
+            zodiac["Libra"] = switch7
+            zodiac["Scorpio"] = switch8
+            zodiac["Sagittarius"] = switch9
+            zodiac["Capricorn"] = switch10
+            zodiac["Aquarius"] = switch11
+            zodiac["Pisces"] = switch12
             
-            
-            self.synth.toggleEngine()
+            self.synth.toggleEngine(signs: zodiac)
             self.isPlaying.toggle()
             
             
