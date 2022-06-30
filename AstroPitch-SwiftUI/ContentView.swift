@@ -23,58 +23,85 @@ struct ContentView: View {
         "\"That's... interesting\" - Bob",
         "\"What are you doing with your life...\" - My father"]
     @State var isPlaying = false
+    @State var switch1 = false
+    @State var switch2 = false
+    @State var switch3 = false
+    @State var switch4 = false
+    @State var switch5 = false
+    @State var switch6 = false
+    @State var switch7 = false
+    @State var switch8 = false
+    @State var switch9 = false
+    @State var switch10 = false
+    @State var switch11 = false
+    @State var switch12 = false
+    
+    //dictionary
+    
+    
+    
+    
 
     var body: some View {
         
-     
-        VStack{
+        Text("Astropitch")
+
+        HStack{
             
-            NavigationView {
-               
-                List {
-                    ForEach(items) { item in
-                        NavigationLink {
-                            Text("Item at \(item.timestamp!, formatter: itemFormatter)")
-                        } label: {
-                            Text(item.timestamp!, formatter: itemFormatter)
-                        }
-                    }
-                    .onDelete(perform: deleteItems)
-                }
+        VStack{
+            Toggle(isOn: $switch1) {
+                Text("Aries")
                 
-                
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Text("astroPitch()")
-                            .font(.title)
-                            .foregroundColor(Color.purple)
-                    }
-                    
-                    
-                    
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        EditButton()
-                    }
-                    ToolbarItem {
-                        Button(action: addItem) {
-                            Label("Add Item", systemImage: "plus")
-                        }
-                        
-                    }
-                   
-                }
-                Text("Select an item")
+            }
+            Toggle(isOn: $switch2) {
+                Text("Taurus")
+            }
+            Toggle(isOn: $switch3) {
+                Text("Gemini")
+            }
+            Toggle(isOn: $switch4) {
+                Text("Cancer")
+            }
+            Toggle(isOn: $switch5) {
+                Text("Leo")
+            }
+            Toggle(isOn: $switch6) {
+                Text("Virgo")
             }
         }
+            VStack{
         
-        //
+            Toggle(isOn: $switch7) {
+                Text("Libra")
+            }
+            Toggle(isOn: $switch8) {
+                Text("Scorpio")
+            }
+            Toggle(isOn: $switch9) {
+                Text("Sagittarius")
+            }
+            Toggle(isOn: $switch10) {
+                Text("Capricorn")
+            }
+            Toggle(isOn: $switch11) {
+                Text("Aquarius")
+            }
+                Toggle(isOn: $switch12) {
+                    Text("Pisces")
+                }
+          
+            }
+            
+        }
         
-        Text("Totally Random Synth")
-            .font(.largeTitle)
-            .fontWeight(.medium)
+     
         Button(action: {
+            
+            
             self.synth.toggleEngine()
             self.isPlaying.toggle()
+            
+            
         }) {
             if isPlaying {
                 HStack {
@@ -107,53 +134,7 @@ struct ContentView: View {
             .foregroundColor(.gray)
         }
     }
-        
-            
-        
-        
-
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(context: viewContext)
-            newItem.timestamp = Date()
-
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
-    }
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            offsets.map { items[$0] }.forEach(viewContext.delete)
-
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
-    }
 }
-
-
-
-
-
-private let itemFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .short
-    formatter.timeStyle = .medium
-    return formatter
-}()
 
 
 struct ContentView_Previews: PreviewProvider {

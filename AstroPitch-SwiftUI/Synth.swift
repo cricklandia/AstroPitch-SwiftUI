@@ -32,6 +32,19 @@ class Synth {
     let AS: [Float] = [233.08, 466.16, 932.33]
     let B: [Float] = [246.94, 493.88, 987.77]
     
+    let pitch1: Float = 130.81//, 261.62, 523.24, 1046.5]
+    let pitch2: Float = 138.59//, 277.18, 554.37]
+    let pitch3: Float = 146.83//, 293.66, 587.32]
+    let pitch4: Float = 155.56//, 311.13, 622.25]
+    let pitch5: Float = 164.81//, 329.62, 659.24]
+    let pitch6: Float = 174.61//, 349.23, 523.25]
+    let pitch7: Float = 185//, 370, 740]
+    let pitch8: Float = 196//, 392, 784]
+    let pitch9: Float = 207.18//, 415.30, 830.61]
+    let pitch10: Float = 220//, 440, 880]
+    let pitch11: Float = 233.08//, 466.16, 932.33]
+    let pitch12: Float = 246.94//, 493.88, 987.77]
+    
     lazy var CPentatonic: [Float] = {
         return C + D + E + FS + A
     }()
@@ -124,7 +137,7 @@ class Synth {
             self.isRunning = true
             Timer.scheduledTimer(withTimeInterval: randomInterval, repeats: true) { (timer) in
                 if !self.isRunning { timer.invalidate(); return }
-                self.frequency = self.CPentatonic.randomElement()!
+                self.frequency = pitch1//self.CPentatonic.randomElement()!
                 self.signal =  self.randomSignal
                 self.updatePhaseIncrement()
             }
@@ -139,7 +152,7 @@ class Synth {
         self.isRunning = false
     }
     
-    func toggleEngine() {
+    func toggleEngine(_: bool ) {
         if isRunning {
             stopEngine()
         } else {
