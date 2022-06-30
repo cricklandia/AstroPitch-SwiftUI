@@ -23,6 +23,7 @@ struct ContentView: View {
         "\"That's... interesting\" - Bob",
         "\"What are you doing with your life...\" - My father"]
     @State var isPlaying = false
+    
     @State var switch1 = false
     @State var switch2 = false
     @State var switch3 = false
@@ -52,55 +53,140 @@ struct ContentView: View {
 
     var body: some View {
         
-        Text("Astropitch")
-
-        HStack{
-            
         VStack{
-            Toggle(isOn: $switch1) {
-                Text("Aries")
-            }
-            Toggle(isOn: $switch2) {
-                Text("Taurus")
-            }
-            Toggle(isOn: $switch3) {
-                Text("Gemini")
-            }
-            Toggle(isOn: $switch4) {
-                Text("Cancer")
-            }
-            Toggle(isOn: $switch5) {
-                Text("Leo")
-            }
-            Toggle(isOn: $switch6) {
-                Text("Virgo")
-            }
-        }
+        
+        Text("astroPitch()")
+            .font(.largeTitle)
+            .fontWeight(.heavy)
+            .foregroundColor(Color.white)
+            .frame(maxWidth: .infinity, maxHeight: 50.0)
+            .background(Color.black)
+            
+        
+       
+          
+            
+       
+            
+              
+            
+            HStack{
+                
+             
+       
+        
+     
+                
+
+       
+           
+            VStack{
+              
+                
+                
+                Toggle(isOn: $switch1) {
+                    
+                    Text("Aries")
+                        .foregroundColor(Color.red)
+                        
+                }
+                .padding(6.0)
+                .border(Color.white, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
+               
+                Toggle(isOn: $switch2) {
+                    Text("Taurus")
+                        .foregroundColor(Color.green)
+                }
+                .padding(6.0)
+                .border(Color.white, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
+                
+                Toggle(isOn: $switch3) {
+                    Text("Gemini")
+                        .foregroundColor(Color.white)
+                    
+                }
+                .padding(6.0)
+                .border(Color.white, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
+                
+                Toggle(isOn: $switch4) {
+                    Text("Cancer")
+                        .foregroundColor(Color.blue)
+                }
+                .padding(6.0)
+                .border(Color.white, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
+                Toggle(isOn: $switch5) {
+                    Text("Leo")
+                        .foregroundColor(Color.red)
+                }
+                .padding(6.0)
+                .border(Color.white, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
+                Toggle(isOn: $switch6) {
+                    Text("Virgo")
+                        .foregroundColor(Color.green)
+                }
+                .padding(6.0)
+                .border(Color.white, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
+            }//end VSTACK1
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color.black)
+          
+            
             VStack{
         
-            Toggle(isOn: $switch7) {
-                Text("Libra")
-            }
-            Toggle(isOn: $switch8) {
-                Text("Scorpio")
-            }
-            Toggle(isOn: $switch9) {
-                Text("Sagittarius")
-            }
-            Toggle(isOn: $switch10) {
-                Text("Capricorn")
-            }
-            Toggle(isOn: $switch11) {
-                Text("Aquarius")
-            }
-                Toggle(isOn: $switch12) {
-                    Text("Pisces")
+                Toggle(isOn: $switch7) {
+                    Text("Libra")
+                        .foregroundColor(Color.white)
                 }
-          
-            }
-            
-        }        
-     
+                .padding(6.0)
+                .border(Color.white, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
+                Toggle(isOn: $switch8) {
+                    Text("Scorpio")
+                        .foregroundColor(Color.blue)
+                }
+                .padding(6.0)
+                .border(Color.white, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
+                Toggle(isOn: $switch9) {
+                    Text("Sagittarius")
+                        .foregroundColor(Color.red)
+                        .lineLimit(1)
+                        
+                }
+                .padding(6.0)
+                .border(Color.white, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
+                
+                Toggle(isOn: $switch10) {
+                    Text("Capricorn")
+                        .lineLimit(1)
+                        .foregroundColor(Color.green)
+                }
+                .padding(6.0)
+                .border(Color.white, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
+                Toggle(isOn: $switch11) {
+                    Text("Aquarius")
+                        .foregroundColor(Color.white)
+                }
+                .padding(6.0)
+                .border(Color.white, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
+                    Toggle(isOn: $switch12) {
+                        Text("Pisces")
+                            .foregroundColor(Color.blue)
+                    }
+                    .padding(6.0)
+                    .border(Color.white, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
+            }//end VSTACK2
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color.black)
+        }//end HSTACK
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color.black)
+        
+  
+        
+        
+        
+        
+        
+        
         Button(action: {
             zodiac["Aries"] = switch1
             zodiac["Taurus"] = switch2
@@ -145,20 +231,34 @@ struct ContentView: View {
                 
             }
         }
+        .padding(/*@START_MENU_TOKEN@*/.bottom, 100.0/*@END_MENU_TOKEN@*/)
+       
+        
         if isPlaying {
             Text(frases.randomElement()!)
             .italic()
             .foregroundColor(.gray)
         }
-    }
+        
+        }//end HSTACK
+        .accentColor(Color.blue)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.black)
+    }//end big VSTACK
+       
 }
+ 
+    
+
+
 
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+            ContentView().previewLayout(.sizeThatFits).previewDevice("iPhone 13").preferredColorScheme(.dark).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
            
         }
     }
 }
+
