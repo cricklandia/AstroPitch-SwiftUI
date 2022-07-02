@@ -21,7 +21,7 @@ struct ContentView: View {
         "\"Wow, such random\" - Doge",
         "\"Still a better lovestory than twilight\" - Reddit 2012",
         "\"That's... interesting\" - Bob",
-        "\"What are you doing with your life...\" - My father"]
+        "\"What are you doing with your life...\" - My father", "\"Will it float?\" - Dave Letterman"]
     @State var isPlaying = false
     
     @State var switch1 = false
@@ -232,6 +232,7 @@ struct ContentView: View {
        
 }//end struct ContentView: View
  
+/*
 struct ContentView2: View {
 
     var synth2 = Synth()
@@ -258,7 +259,7 @@ struct ContentView2: View {
     
        
 }//end struct ContentView2: View
-
+*/
 
 
 
@@ -266,7 +267,7 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ContentView()
-            ContentView2()
+            //ContentView2()
            
         }
     }

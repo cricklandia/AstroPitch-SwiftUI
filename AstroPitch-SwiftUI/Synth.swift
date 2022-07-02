@@ -14,6 +14,7 @@ let PI = Float.pi
 class Synth {
     
     let engine = AVAudioEngine()
+    let engine2 = AVAudioEngine()
     let outputFormat: AVAudioFormat
     let inputFormat: AVAudioFormat?
     let sampleRate: Float
@@ -88,13 +89,14 @@ class Synth {
     
     init() {
         self.outputFormat = self.engine.outputNode.outputFormat(forBus: 0)
+        //self.engine2.outputNode.outputFormat(forBus: 0)
         self.inputFormat = AVAudioFormat(commonFormat: outputFormat.commonFormat,
                                     sampleRate: outputFormat.sampleRate,
                                     channels: 1,
                                     interleaved: outputFormat.isInterleaved)
         self.sampleRate = Float(outputFormat.sampleRate)
         self.phaseIncrement = (TWO_PI / sampleRate) * frequency
-        print(phaseIncrement)
+        print("phaseIncrement = ", phaseIncrement)
         self.signal = triangleWave
         
         setupOscillator()
@@ -128,6 +130,11 @@ class Synth {
         self.engine.connect(oscillator, to: engine.mainMixerNode, format: inputFormat)
         self.engine.connect(engine.mainMixerNode, to: engine.outputNode, format: outputFormat)
         self.engine.mainMixerNode.outputVolume = 0.5
+        
+//        self.engine2.attach(oscillator)
+//        self.engine2.connect(oscillator, to: engine2.mainMixerNode, format: inputFormat)
+//        self.engine2.connect(engine.mainMixerNode, to: engine2.outputNode, format: outputFormat)
+//        self.engine2.mainMixerNode.outputVolume = 0.5
     }
     
     func updatePhaseIncrement() {
@@ -136,12 +143,34 @@ class Synth {
     
     func startEngine(signs: Dictionary<String, Bool>) {
         do {
-            try self.engine.start()
+            //try self.engine.start()
             self.isRunning = true
-            print(signs)
-//            if (signs["Aries"] == true){
-//            self.frequency = self.pitch1
-//            }
+            print("startEngine()")//, signs)
+            if (signs["Aries"] == true){
+                try self.engine.start()
+                self.frequency = self.pitch1//CPentatonic.randomElement()!
+                
+                print("aries on")
+                
+            }
+            else {
+                print("aries off")
+        }
+            if (signs["Taurus"] == true){
+                try self.engine.start()//engine2 breaks
+                self.frequency = self.pitch2
+                print("taurus on")
+               
+            }
+                else {
+                    print("taurus off")
+            }
+            self.updatePhaseIncrement()
+
+            
+            
+            
+            
 //            Timer.scheduledTimer(withTimeInterval: randomInterval, repeats: true) { (timer) in
 //                if !self.isRunning { timer.invalidate(); return }
 //                if sign {
@@ -161,18 +190,20 @@ class Synth {
     
     func stopEngine() {
         self.engine.stop()
+        //self.engine2.stop()
         self.isRunning = false
     }
     
     func toggleEngine(signs: Dictionary<String, Bool>) {
-        print("We made it to toggleEngine with our variable as ", signs)
+        //print("We made it to toggleEngine with our dictionary as ", signs)
         
         if isRunning {
+            print("toggleEngine OFF\n")
             stopEngine()
         } else {
-            //startEngine(sign: true)
+            print("toggleEngine ON")
             startEngine(signs: signs)
-            print("else start the engine", signs)
+            
         }
     }
 }
