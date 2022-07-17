@@ -150,20 +150,110 @@ class Synth {
                 try self.engine.start()
                 self.frequency = self.pitch1//CPentatonic.randomElement()!
                 
-                print("aries on")
+                print("Aries ((( ON )))")
                 
             }
             else {
-                print("aries off")
+                print("Aries off")
         }
             if (signs["Taurus"] == true){
                 try self.engine.start()//engine2 breaks
                 self.frequency = self.pitch2
-                print("taurus on")
+                print("Taurus ((( ON )))")
                
             }
                 else {
-                    print("taurus off")
+                    print("Taurus off")
+            }
+            if (signs["Gemini"] == true){
+                try self.engine.start()//engine2 breaks
+                self.frequency = self.pitch3
+                print("Gemini ((( ON )))")
+               
+            }
+                else {
+                    print("Gemini off")
+            }
+            if (signs["Cancer"] == true){
+                try self.engine.start()//engine2 breaks
+                self.frequency = self.pitch3
+                print("Cancer ((( ON )))")
+               
+            }
+                else {
+                    print("Cancer off")
+            }
+            if (signs["Leo"] == true){
+                try self.engine.start()//engine2 breaks
+                self.frequency = self.pitch3
+                print("Leo ((( ON )))")
+               
+            }
+                else {
+                    print("Leo off")
+            }
+            if (signs["Virgo"] == true){
+                try self.engine.start()//engine2 breaks
+                self.frequency = self.pitch3
+                print("Virgo ((( ON )))")
+               
+            }
+                else {
+                    print("Virgo off")
+            }
+            if (signs["Libra"] == true){
+                try self.engine.start()//engine2 breaks
+                self.frequency = self.pitch3
+                print("Libra ((( ON )))")
+               
+            }
+                else {
+                    print("Libra off")
+            }
+            if (signs["Scorpio"] == true){
+                try self.engine.start()//engine2 breaks
+                self.frequency = self.pitch3
+                print("Scorpio ((( ON )))")
+               
+            }
+                else {
+                    print("Scorpio off")
+            }
+            if (signs["Sagittarius"] == true){
+                try self.engine.start()//engine2 breaks
+                self.frequency = self.pitch3
+                print("Sagittarius ((( ON )))")
+               
+            }
+                else {
+                    print("Sagittarius off")
+            }
+            if (signs["Capricorn"] == true){
+                try self.engine.start()//engine2 breaks
+                self.frequency = self.pitch3
+                print("Capricorn ((( ON )))")
+               
+            }
+                else {
+                    print("Capricorn off")
+            }
+            if (signs["Aquarius"] == true){
+                try self.engine.start()//engine2 breaks
+                self.frequency = self.pitch3
+                print("Aquarius ((( ON )))")
+               
+            }
+                else {
+                    print("Aquarius off")
+            }
+            if (signs["Pisces"] == true){
+                try self.engine.start()//engine2 breaks
+                self.frequency = self.pitch3
+                print("Pisces ((( ON )))")
+               
+            }
+                else {
+                    print("Pisces off")
             }
             self.updatePhaseIncrement()
 
