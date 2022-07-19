@@ -50,18 +50,21 @@ class Synth {
     
    
     
-    lazy var CPentatonic: [Float] = {
-        return C + D + E + FS + A
-    }()
-    
-    lazy var CMajor: [Float] = {
-        return C + D + E + F + G + A + B
-    }()
+//    lazy var CPentatonic: [Float] = {
+//        return C + D + E + FS + A
+//    }()
+//
+//    lazy var CMajor: [Float] = {
+//        return C + D + E + F + G + A + B
+//    }()
     
     var frequency: Float = 432 // la 432Hz
     var amplitude: Float = 1
     var phase: Float = 0
-    var phaseIncrement: Float
+    var ariesIncrement: Float
+    var taurusIncrement: Float
+    var ariesNode: AVAudioSourceNode!
+    var taurusNode: AVAudioSourceNode!
     var randomInterval: Double {
         Double.random(in: Double.random(in: 0.1...0.5)...Double.random(in: 0.6...2))
     }
@@ -89,6 +92,7 @@ class Synth {
     var signal: (Float) -> Float
     
     init() {
+        self.mainMixer = self.engine.mainMixerNode
         self.outputFormat = self.engine.outputNode.outputFormat(forBus: 0)
         //self.engine2.outputNode.outputFormat(forBus: 0)
         self.inputFormat = AVAudioFormat(commonFormat: outputFormat.commonFormat,
@@ -96,17 +100,20 @@ class Synth {
                                     channels: 12,
                                     interleaved: outputFormat.isInterleaved)
         self.sampleRate = Float(outputFormat.sampleRate)
-        self.phaseIncrement = (TWO_PI / sampleRate) * frequency
-        print("phaseIncrement = ", phaseIncrement)
+        self.ariesIncrement = (TWO_PI / sampleRate) * pitch1
+        self.taurusIncrement = (TWO_PI / sampleRate) * pitch11
+        print("phaseIncrement = ", ariesIncrement)
         self.signal = triangleWave
         
-        setupOscillator()
+//        setupOscillator()
+        self.ariesNode = setupOscillator(phaseIncrement: self.ariesIncrement)
+        self.taurusNode = setupOscillator(phaseIncrement: self.taurusIncrement)
         setupEngine()
 //        startEngine()
     }
     
-    func setupOscillator() {
-        self.oscillator = AVAudioSourceNode { (_, _, frameCount, bufferPointer) -> OSStatus in
+    func setupOscillator(phaseIncrement: Float) -> AVAudioSourceNode {
+        return AVAudioSourceNode { (_, _, frameCount, bufferPointer) -> OSStatus in
             
             let audioBufferList = UnsafeMutableAudioBufferListPointer(bufferPointer)
             
@@ -114,7 +121,7 @@ class Synth {
             for frame in 0..<Int(frameCount) {
                 let value = self.signal(self.phase) * self.amplitude // senoide por enquanto
                 
-                self.phase = modulus(self.phase + self.phaseIncrement, TWO_PI)
+                self.phase = modulus(self.phase + phaseIncrement, TWO_PI)
                 
                 // para cada canal do frame (no caso é só 1 mesmo)
                 for buffer in audioBufferList {
@@ -127,8 +134,8 @@ class Synth {
     }
     
     func setupEngine() {
-        self.engine.attach(oscillator)
-        self.engine.connect(oscillator, to: engine.mainMixerNode, format: inputFormat)
+//        self.engine.attach(oscillator)
+//        self.engine.connect(oscillator, to: engine.mainMixerNode, format: inputFormat)
         self.engine.connect(engine.mainMixerNode, to: engine.outputNode, format: outputFormat)
         self.engine.mainMixerNode.outputVolume = 0.5
         
@@ -138,9 +145,9 @@ class Synth {
 //        self.engine2.mainMixerNode.outputVolume = 0.5
     }
     
-    func updatePhaseIncrement() {
-        self.phaseIncrement = (TWO_PI / sampleRate) * frequency
-    }
+//    func updatePhaseIncrement() {
+//        self.phaseIncrement = (TWO_PI / sampleRate) * frequency
+//    }
     
     func startEngine(signs: Dictionary<String, Bool>) {
         do {
@@ -148,22 +155,31 @@ class Synth {
             self.isRunning = true
             print("startEngine()")//, signs)
             if (signs["Aries"] == true){
-                try self.engine.start()
+                
+                self.engine.attach(self.ariesNode)
+                self.engine.connect(self.ariesNode, to: engine.mainMixerNode, format: inputFormat)
+                
                 self.frequency = self.pitch1//CPentatonic.randomElement()!
                 
                 print("Aries ((( ON )))")
-                
+                self.ariesIncrement = (TWO_PI / sampleRate) * pitch1
             }
             else {
+                self.engine.detach(self.ariesNode)
                 print("Aries off")
         }
             if (signs["Taurus"] == true){
+                
+                self.engine.attach(self.taurusNode)
+                self.engine.connect(self.taurusNode, to: engine.mainMixerNode, format: inputFormat)
+                
                 try self.engine.start()//engine2 breaks
                 self.frequency = self.pitch11
                 print("Taurus ((( ON )))")
                
             }
                 else {
+                    self.engine.detach(self.taurusNode)
                     print("Taurus off")
             }
             if (signs["Gemini"] == true){
@@ -256,7 +272,8 @@ class Synth {
                 else {
                     print("Pisces off")
             }
-            self.updatePhaseIncrement()
+            //self.updatePhaseIncrement()
+            try self.engine.start()
 
             
             
