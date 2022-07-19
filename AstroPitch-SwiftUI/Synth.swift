@@ -22,31 +22,31 @@ class Synth {
     var isRunning: Bool = false
     
      // de c3 a c6
-    let C: [Float] = [130.81, 261.62, 523.24, 1046.5]
-    let CS: [Float] = [138.59, 277.18, 554.37]
-    let D: [Float] = [146.83, 293.66, 587.32]
-    let DS: [Float] = [155.56, 311.13, 622.25]
-    let E: [Float] = [164.81, 329.62, 659.24]
-    let F: [Float] = [174.61, 349.23, 523.25]
-    let FS: [Float] = [185, 370, 740]
-    let G: [Float] = [196, 392, 784]
-    let GS: [Float] = [207.18, 415.30, 830.61]
-    let A: [Float] = [220, 440, 880]
-    let AS: [Float] = [233.08, 466.16, 932.33]
-    let B: [Float] = [246.94, 493.88, 987.77]
+//    let C: [Float] = [130.81, 261.62, 523.24, 1046.5]
+//    let CS: [Float] = [138.59, 277.18, 554.37]
+//    let D: [Float] = [146.83, 293.66, 587.32]
+//    let DS: [Float] = [155.56, 311.13, 622.25]
+//    let E: [Float] = [164.81, 329.62, 659.24]
+//    let F: [Float] = [174.61, 349.23, 523.25]
+//    let FS: [Float] = [185, 370, 740]
+//    let G: [Float] = [196, 392, 784]
+//    let GS: [Float] = [207.18, 415.30, 830.61]
+//    let A: [Float] = [220, 440, 880]
+//    let AS: [Float] = [233.08, 466.16, 932.33]
+//    let B: [Float] = [246.94, 493.88, 987.77]
     
-    let pitch1: Float = 130.81//, 261.62, 523.24, 1046.5]
-    let pitch2: Float = 138.59//, 277.18, 554.37]
-    let pitch3: Float = 146.83//, 293.66, 587.32]
-    let pitch4: Float = 155.56//, 311.13, 622.25]
-    let pitch5: Float = 164.81//, 329.62, 659.24]
-    let pitch6: Float = 174.61//, 349.23, 523.25]
-    let pitch7: Float = 185//, 370, 740]
-    let pitch8: Float = 196//, 392, 784]
-    let pitch9: Float = 207.18//, 415.30, 830.61]
-    let pitch10: Float = 220//, 440, 880]
-    let pitch11: Float = 233.08//, 466.16, 932.33]
-    let pitch12: Float = 246.94//, 493.88, 987.77]
+    let pitch1: Float = 256.87//C Aries
+    let pitch2: Float = 272.14//C# Cap
+    let pitch3: Float = 288.33//D Aqua
+    let pitch4: Float = 305.47//D# Scorp
+    let pitch5: Float = 323.63//E Sag
+    let pitch6: Float = 342.88//F Gem
+    let pitch7: Float = 363.27//F# Virgo
+    let pitch8: Float = 384.87//G Libra
+    let pitch9: Float = 407.75//G# Cancer
+    let pitch10: Float = 432//A Leo
+    let pitch11: Float = 457.69//A# Taurus
+    let pitch12: Float = 484.90//B Pisces
     
    
     
@@ -159,7 +159,7 @@ class Synth {
         }
             if (signs["Taurus"] == true){
                 try self.engine.start()//engine2 breaks
-                self.frequency = self.pitch2
+                self.frequency = self.pitch11
                 print("Taurus ((( ON )))")
                
             }
@@ -168,7 +168,7 @@ class Synth {
             }
             if (signs["Gemini"] == true){
                 try self.engine.start()//engine2 breaks
-                self.frequency = self.pitch3
+                self.frequency = self.pitch6
                 print("Gemini ((( ON )))")
                
             }
@@ -177,7 +177,7 @@ class Synth {
             }
             if (signs["Cancer"] == true){
                 try self.engine.start()//engine2 breaks
-                self.frequency = self.pitch3
+                self.frequency = self.pitch9
                 print("Cancer ((( ON )))")
                
             }
@@ -186,7 +186,7 @@ class Synth {
             }
             if (signs["Leo"] == true){
                 try self.engine.start()//engine2 breaks
-                self.frequency = self.pitch3
+                self.frequency = self.pitch10
                 print("Leo ((( ON )))")
                
             }
@@ -195,7 +195,7 @@ class Synth {
             }
             if (signs["Virgo"] == true){
                 try self.engine.start()//engine2 breaks
-                self.frequency = self.pitch3
+                self.frequency = self.pitch7
                 print("Virgo ((( ON )))")
                
             }
@@ -204,7 +204,7 @@ class Synth {
             }
             if (signs["Libra"] == true){
                 try self.engine.start()//engine2 breaks
-                self.frequency = self.pitch3
+                self.frequency = self.pitch8
                 print("Libra ((( ON )))")
                
             }
@@ -213,7 +213,7 @@ class Synth {
             }
             if (signs["Scorpio"] == true){
                 try self.engine.start()//engine2 breaks
-                self.frequency = self.pitch3
+                self.frequency = self.pitch4
                 print("Scorpio ((( ON )))")
                
             }
@@ -222,7 +222,7 @@ class Synth {
             }
             if (signs["Sagittarius"] == true){
                 try self.engine.start()//engine2 breaks
-                self.frequency = self.pitch3
+                self.frequency = self.pitch5
                 print("Sagittarius ((( ON )))")
                
             }
@@ -231,7 +231,7 @@ class Synth {
             }
             if (signs["Capricorn"] == true){
                 try self.engine.start()//engine2 breaks
-                self.frequency = self.pitch3
+                self.frequency = self.pitch2
                 print("Capricorn ((( ON )))")
                
             }
@@ -249,7 +249,7 @@ class Synth {
             }
             if (signs["Pisces"] == true){
                 try self.engine.start()//engine2 breaks
-                self.frequency = self.pitch3
+                self.frequency = self.pitch12
                 print("Pisces ((( ON )))")
                
             }
