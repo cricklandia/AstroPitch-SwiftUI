@@ -35,18 +35,18 @@ class Synth {
 //    let AS: [Float] = [233.08, 466.16, 932.33]
 //    let B: [Float] = [246.94, 493.88, 987.77]
     
-    let pitch1: Float = 256.87//C Aries
-    let pitch2: Float = 272.14//C# Cap
-    let pitch3: Float = 288.33//D Aqua
-    let pitch4: Float = 305.47//D# Scorp
-    let pitch5: Float = 323.63//E Sag
-    let pitch6: Float = 342.88//F Gem
-    let pitch7: Float = 363.27//F# Virgo
-    let pitch8: Float = 384.87//G Libra
-    let pitch9: Float = 407.75//G# Cancer
-    let pitch10: Float = 432//A Leo
-    let pitch11: Float = 457.69//A# Taurus
-    let pitch12: Float = 484.90//B Pisces
+    let pitch1: Float = 128.43//256.87//C Aries
+    let pitch2: Float = 136.07//C# Cap
+    let pitch3: Float = 144.16//D Aqua
+    let pitch4: Float = 152.74//D# Scorp
+    let pitch5: Float = 161.82//E Sag
+    let pitch6: Float =  171.44//F Gem
+    let pitch7: Float = 181.63//F# Virgo
+    let pitch8: Float = 192.43//384.87//G Libra
+    let pitch9: Float = 203.88//G# Cancer
+    let pitch10: Float = 216.00//A Leo
+    let pitch11: Float = 228.84//A# Taurus
+    let pitch12: Float = 242.45//B Pisces
     
    
     
@@ -63,8 +63,28 @@ class Synth {
     var phase: Float = 0
     var ariesIncrement: Float
     var taurusIncrement: Float
-    var ariesNode: AVAudioSourceNode!
-    var taurusNode: AVAudioSourceNode!
+        var geminiIncrement: Float
+        var cancerIncrement: Float
+        var leoIncrement: Float
+        var virgoIncrement: Float
+        var libraIncrement: Float
+        var scorpioIncrement: Float
+        var sagIncrement: Float
+        var capIncrement: Float
+        var aquaIncrement: Float
+        var piscesIncrement: Float
+        var ariesNode: AVAudioSourceNode!
+        var taurusNode: AVAudioSourceNode!
+        var geminiNode: AVAudioSourceNode!
+        var cancerNode: AVAudioSourceNode!
+        var leoNode: AVAudioSourceNode!
+        var virgoNode: AVAudioSourceNode!
+        var libraNode: AVAudioSourceNode!
+        var scorpioNode: AVAudioSourceNode!
+        var sagNode: AVAudioSourceNode!
+        var capNode: AVAudioSourceNode!
+        var aquaNode: AVAudioSourceNode!
+        var piscesNode: AVAudioSourceNode!
     var randomInterval: Double {
         Double.random(in: Double.random(in: 0.1...0.5)...Double.random(in: 0.6...2))
     }
@@ -100,14 +120,35 @@ class Synth {
                                     channels: 12,
                                     interleaved: outputFormat.isInterleaved)
         self.sampleRate = Float(outputFormat.sampleRate)
-        self.ariesIncrement = (TWO_PI / sampleRate) * pitch1
-        self.taurusIncrement = (TWO_PI / sampleRate) * pitch11
+                self.ariesIncrement = (TWO_PI / sampleRate) * pitch1
+                self.taurusIncrement = (TWO_PI / sampleRate) * pitch11
+                self.geminiIncrement = (TWO_PI / sampleRate) * pitch6
+                self.cancerIncrement = (TWO_PI / sampleRate) * pitch9
+                self.leoIncrement = (TWO_PI / sampleRate) * pitch10
+                self.virgoIncrement = (TWO_PI / sampleRate) * pitch7
+                self.libraIncrement = (TWO_PI / sampleRate) * pitch8
+                self.scorpioIncrement = (TWO_PI / sampleRate) * pitch4
+                self.sagIncrement = (TWO_PI / sampleRate) * pitch5
+                self.capIncrement = (TWO_PI / sampleRate) * pitch2
+                self.aquaIncrement = (TWO_PI / sampleRate) * pitch3
+                self.piscesIncrement = (TWO_PI / sampleRate) * pitch12
         print("phaseIncrement = ", ariesIncrement)
-        self.signal = triangleWave
+        self.signal = sineWave
         
 //        setupOscillator()
-        self.ariesNode = setupOscillator(phaseIncrement: self.ariesIncrement)
-        self.taurusNode = setupOscillator(phaseIncrement: self.taurusIncrement)
+                self.ariesNode = setupOscillator(phaseIncrement: self.ariesIncrement)
+                self.taurusNode = setupOscillator(phaseIncrement: self.taurusIncrement)
+                self.taurusNode = setupOscillator(phaseIncrement: self.taurusIncrement)
+                self.geminiNode = setupOscillator(phaseIncrement: self.geminiIncrement)
+                self.cancerNode = setupOscillator(phaseIncrement: self.cancerIncrement)
+                self.leoNode = setupOscillator(phaseIncrement: self.leoIncrement)
+                self.virgoNode = setupOscillator(phaseIncrement: self.virgoIncrement)
+                self.libraNode = setupOscillator(phaseIncrement: self.libraIncrement)
+                self.scorpioNode = setupOscillator(phaseIncrement: self.scorpioIncrement)
+                self.sagNode = setupOscillator(phaseIncrement: self.sagIncrement)
+                self.capNode = setupOscillator(phaseIncrement: self.capIncrement)
+                self.aquaNode = setupOscillator(phaseIncrement: self.aquaIncrement)
+                self.piscesNode = setupOscillator(phaseIncrement: self.piscesIncrement)
         setupEngine()
 //        startEngine()
     }
@@ -158,120 +199,147 @@ class Synth {
                 
                 self.engine.attach(self.ariesNode)
                 self.engine.connect(self.ariesNode, to: engine.mainMixerNode, format: inputFormat)
-                
-                self.frequency = self.pitch1//CPentatonic.randomElement()!
-                
-                print("Aries ((( ON )))")
+                self.frequency = self.pitch1
+                print("Aries ((((((((((((( ON )))))))))))))")
                 self.ariesIncrement = (TWO_PI / sampleRate) * pitch1
             }
             else {
                 self.engine.detach(self.ariesNode)
-                print("Aries off")
+                //print("Aries off")
         }
             if (signs["Taurus"] == true){
                 
                 self.engine.attach(self.taurusNode)
                 self.engine.connect(self.taurusNode, to: engine.mainMixerNode, format: inputFormat)
-                
-                try self.engine.start()//engine2 breaks
                 self.frequency = self.pitch11
-                print("Taurus ((( ON )))")
-               
+                print("Taurus ((((((((((((( ON )))))))))))))")
+                self.taurusIncrement = (TWO_PI / sampleRate) * pitch11
             }
-                else {
-                    self.engine.detach(self.taurusNode)
-                    print("Taurus off")
-            }
+            else {
+                self.engine.detach(self.taurusNode)
+                //print("Taurus off")
+        }
             if (signs["Gemini"] == true){
-                try self.engine.start()//engine2 breaks
+                
+                self.engine.attach(self.geminiNode)
+                self.engine.connect(self.geminiNode, to: engine.mainMixerNode, format: inputFormat)
                 self.frequency = self.pitch6
-                print("Gemini ((( ON )))")
-               
+                print("Gemini ((((((((((((( ON )))))))))))))")
+                self.geminiIncrement = (TWO_PI / sampleRate) * pitch6
             }
-                else {
-                    print("Gemini off")
-            }
+            else {
+                self.engine.detach(self.geminiNode)
+                //print("Gemini off")
+        }
             if (signs["Cancer"] == true){
-                try self.engine.start()//engine2 breaks
+                
+                self.engine.attach(self.cancerNode)
+                self.engine.connect(self.cancerNode, to: engine.mainMixerNode, format: inputFormat)
                 self.frequency = self.pitch9
-                print("Cancer ((( ON )))")
-               
+                print("Cancer ((((((((((((( ON )))))))))))))")
+                self.cancerIncrement = (TWO_PI / sampleRate) * pitch9
             }
-                else {
-                    print("Cancer off")
-            }
+            else {
+                self.engine.detach(self.cancerNode)
+                //print("Cancer off")
+        }
             if (signs["Leo"] == true){
-                try self.engine.start()//engine2 breaks
+                
+                self.engine.attach(self.leoNode)
+                self.engine.connect(self.leoNode, to: engine.mainMixerNode, format: inputFormat)
                 self.frequency = self.pitch10
-                print("Leo ((( ON )))")
-               
+                print("Leo ((((((((((((( ON )))))))))))))")
+                self.leoIncrement = (TWO_PI / sampleRate) * pitch10
             }
-                else {
-                    print("Leo off")
-            }
+            else {
+                self.engine.detach(self.leoNode)
+                //print("Leo off")
+        }
             if (signs["Virgo"] == true){
-                try self.engine.start()//engine2 breaks
+                
+                self.engine.attach(self.virgoNode)
+                self.engine.connect(self.virgoNode, to: engine.mainMixerNode, format: inputFormat)
                 self.frequency = self.pitch7
-                print("Virgo ((( ON )))")
-               
+                print("Virgo ((((((((((((( ON )))))))))))))")
+                self.virgoIncrement = (TWO_PI / sampleRate) * pitch7
             }
-                else {
-                    print("Virgo off")
-            }
+            else {
+                self.engine.detach(self.virgoNode)
+                //print("Virgo off")
+        }
             if (signs["Libra"] == true){
-                try self.engine.start()//engine2 breaks
+                
+                self.engine.attach(self.libraNode)
+                self.engine.connect(self.libraNode, to: engine.mainMixerNode, format: inputFormat)
                 self.frequency = self.pitch8
-                print("Libra ((( ON )))")
-               
+                print("Libra ((((((((((((( ON )))))))))))))")
+                self.libraIncrement = (TWO_PI / sampleRate) * pitch8
             }
-                else {
-                    print("Libra off")
-            }
+            else {
+                self.engine.detach(self.libraNode)
+                //print("Libra off")
+        }
             if (signs["Scorpio"] == true){
-                try self.engine.start()//engine2 breaks
+                
+                self.engine.attach(self.scorpioNode)
+                self.engine.connect(self.scorpioNode, to: engine.mainMixerNode, format: inputFormat)
                 self.frequency = self.pitch4
-                print("Scorpio ((( ON )))")
-               
+                print("Scorpio ((((((((((((( ON )))))))))))))")
+                self.scorpioIncrement = (TWO_PI / sampleRate) * pitch4
             }
-                else {
-                    print("Scorpio off")
-            }
+            else {
+                self.engine.detach(self.scorpioNode)
+                //print("Scorpio off")
+        }
             if (signs["Sagittarius"] == true){
-                try self.engine.start()//engine2 breaks
+                
+                self.engine.attach(self.sagNode)
+                self.engine.connect(self.sagNode, to: engine.mainMixerNode, format: inputFormat)
                 self.frequency = self.pitch5
-                print("Sagittarius ((( ON )))")
-               
+                print("Sagittarius ((((((((((((( ON )))))))))))))")
+                self.sagIncrement = (TWO_PI / sampleRate) * pitch5
             }
-                else {
-                    print("Sagittarius off")
-            }
+            else {
+                self.engine.detach(self.sagNode)
+                //print("Sagittarius off")
+        }
             if (signs["Capricorn"] == true){
-                try self.engine.start()//engine2 breaks
+                
+                self.engine.attach(self.capNode)
+                self.engine.connect(self.capNode, to: engine.mainMixerNode, format: inputFormat)
                 self.frequency = self.pitch2
-                print("Capricorn ((( ON )))")
-               
+                print("Capricorn ((((((((((((( ON )))))))))))))")
+                self.capIncrement = (TWO_PI / sampleRate) * pitch2
             }
-                else {
-                    print("Capricorn off")
-            }
+            else {
+                self.engine.detach(self.capNode)
+                //print("Capricorn off")
+        }
             if (signs["Aquarius"] == true){
-                try self.engine.start()//engine2 breaks
+                
+                self.engine.attach(self.aquaNode)
+                self.engine.connect(self.aquaNode, to: engine.mainMixerNode, format: inputFormat)
                 self.frequency = self.pitch3
-                print("Aquarius ((( ON )))")
-               
+                print("Aquarius ((((((((((((( ON )))))))))))))")
+                self.aquaIncrement = (TWO_PI / sampleRate) * pitch3
             }
-                else {
-                    print("Aquarius off")
-            }
+            else {
+                self.engine.detach(self.aquaNode)
+                //print("Aquarius off")
+        }
             if (signs["Pisces"] == true){
-                try self.engine.start()//engine2 breaks
+                
+                self.engine.attach(self.piscesNode)
+                self.engine.connect(self.piscesNode, to: engine.mainMixerNode, format: inputFormat)
                 self.frequency = self.pitch12
-                print("Pisces ((( ON )))")
-               
+                print("Pisces ((((((((((((( ON )))))))))))))")
+                self.piscesIncrement = (TWO_PI / sampleRate) * pitch12
             }
-                else {
-                    print("Pisces off")
-            }
+            else {
+                self.engine.detach(self.piscesNode)
+                //print("Pisces off")
+        }
+            
             //self.updatePhaseIncrement()
             try self.engine.start()
 
