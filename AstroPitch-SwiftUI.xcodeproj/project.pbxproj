@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D0BE12C288630AA00C51EA9 /* SignalGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0BE12B288630AA00C51EA9 /* SignalGenerator.swift */; };
 		48498AFA286CE1770015E2E6 /* AstroPitch_SwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48498AF9286CE1770015E2E6 /* AstroPitch_SwiftUIApp.swift */; };
 		48498AFC286CE1770015E2E6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48498AFB286CE1770015E2E6 /* ContentView.swift */; };
 		48498AFE286CE1790015E2E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 48498AFD286CE1790015E2E6 /* Assets.xcassets */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1D0BE12B288630AA00C51EA9 /* SignalGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalGenerator.swift; sourceTree = "<group>"; };
 		48498AF6286CE1770015E2E6 /* AstroPitch-SwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AstroPitch-SwiftUI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		48498AF9286CE1770015E2E6 /* AstroPitch_SwiftUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AstroPitch_SwiftUIApp.swift; sourceTree = "<group>"; };
 		48498AFB286CE1770015E2E6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -67,6 +69,7 @@
 				48498B02286CE1790015E2E6 /* Persistence.swift */,
 				48498B04286CE1790015E2E6 /* AstroPitch_SwiftUI.xcdatamodeld */,
 				48498AFF286CE1790015E2E6 /* Preview Content */,
+				1D0BE12B288630AA00C51EA9 /* SignalGenerator.swift */,
 			);
 			path = "AstroPitch-SwiftUI";
 			sourceTree = "<group>";
@@ -149,6 +152,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1D0BE12C288630AA00C51EA9 /* SignalGenerator.swift in Sources */,
 				48498B03286CE1790015E2E6 /* Persistence.swift in Sources */,
 				48498AFC286CE1770015E2E6 /* ContentView.swift in Sources */,
 				48498B06286CE1790015E2E6 /* AstroPitch_SwiftUI.xcdatamodeld in Sources */,

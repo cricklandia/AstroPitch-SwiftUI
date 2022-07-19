@@ -15,6 +15,7 @@ class Synth {
     
     let engine = AVAudioEngine()
     let engine2 = AVAudioEngine()
+    var mainMixer: AVAudioMixerNode
     let outputFormat: AVAudioFormat
     let inputFormat: AVAudioFormat?
     let sampleRate: Float
@@ -92,7 +93,7 @@ class Synth {
         //self.engine2.outputNode.outputFormat(forBus: 0)
         self.inputFormat = AVAudioFormat(commonFormat: outputFormat.commonFormat,
                                     sampleRate: outputFormat.sampleRate,
-                                    channels: 1,
+                                    channels: 12,
                                     interleaved: outputFormat.isInterleaved)
         self.sampleRate = Float(outputFormat.sampleRate)
         self.phaseIncrement = (TWO_PI / sampleRate) * frequency
