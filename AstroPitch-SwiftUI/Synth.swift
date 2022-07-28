@@ -60,7 +60,9 @@ class Synth {
     
     var frequency: Float = 432 // la 432Hz
     var amplitude: Float = 1
-    var phase: Float = 0
+    var ariesPhase: Float = 0
+    var taurusPhase: Float = 0
+    var libraPhase: Float = 0
     var ariesIncrement: Float
     var taurusIncrement: Float
         var geminiIncrement: Float
@@ -117,7 +119,7 @@ class Synth {
         //self.engine2.outputNode.outputFormat(forBus: 0)
         self.inputFormat = AVAudioFormat(commonFormat: outputFormat.commonFormat,
                                     sampleRate: outputFormat.sampleRate,
-                                    channels: 12,
+                                    channels: 2,
                                     interleaved: outputFormat.isInterleaved)
         self.sampleRate = Float(outputFormat.sampleRate)
                 self.ariesIncrement = (TWO_PI / sampleRate) * pitch1
@@ -136,33 +138,33 @@ class Synth {
         self.signal = sineWave
         
 //        setupOscillator()
-                self.ariesNode = setupOscillator(phaseIncrement: self.ariesIncrement)
-                self.taurusNode = setupOscillator(phaseIncrement: self.taurusIncrement)
-                self.taurusNode = setupOscillator(phaseIncrement: self.taurusIncrement)
-                self.geminiNode = setupOscillator(phaseIncrement: self.geminiIncrement)
-                self.cancerNode = setupOscillator(phaseIncrement: self.cancerIncrement)
-                self.leoNode = setupOscillator(phaseIncrement: self.leoIncrement)
-                self.virgoNode = setupOscillator(phaseIncrement: self.virgoIncrement)
-                self.libraNode = setupOscillator(phaseIncrement: self.libraIncrement)
-                self.scorpioNode = setupOscillator(phaseIncrement: self.scorpioIncrement)
-                self.sagNode = setupOscillator(phaseIncrement: self.sagIncrement)
-                self.capNode = setupOscillator(phaseIncrement: self.capIncrement)
-                self.aquaNode = setupOscillator(phaseIncrement: self.aquaIncrement)
-                self.piscesNode = setupOscillator(phaseIncrement: self.piscesIncrement)
-        setupEngine()
+        self.ariesNode = setupAriesOscillator(phaseIncrement: self.ariesIncrement, signPhase: self.ariesPhase)
+        self.taurusNode = setupTaurusOscillator(phaseIncrement: self.taurusIncrement, signPhase: self.taurusPhase)
+                //self.taurusNode = setupOscillator(phaseIncrement: self.taurusIncrement)
+//                self.geminiNode = setupOscillator(phaseIncrement: self.geminiIncrement)
+//                self.cancerNode = setupOscillator(phaseIncrement: self.cancerIncrement)
+//                self.leoNode = setupOscillator(phaseIncrement: self.leoIncrement)
+//                self.virgoNode = setupOscillator(phaseIncrement: self.virgoIncrement)
+        self.libraNode = setupLibraOscillator(phaseIncrement: self.libraIncrement, signPhase: self.libraPhase)
+//                self.scorpioNode = setupOscillator(phaseIncrement: self.scorpioIncrement)
+//                self.sagNode = setupOscillator(phaseIncrement: self.sagIncrement)
+//                self.capNode = setupOscillator(phaseIncrement: self.capIncrement)
+//                self.aquaNode = setupOscillator(phaseIncrement: self.aquaIncrement)
+//                self.piscesNode = setupOscillator(phaseIncrement: self.piscesIncrement)
+        setupEngine(mainMixer: self.mainMixer)
 //        startEngine()
     }
     
-    func setupOscillator(phaseIncrement: Float) -> AVAudioSourceNode {
+    func setupAriesOscillator(phaseIncrement: Float, signPhase: Float) -> AVAudioSourceNode {
         return AVAudioSourceNode { (_, _, frameCount, bufferPointer) -> OSStatus in
             
             let audioBufferList = UnsafeMutableAudioBufferListPointer(bufferPointer)
             
             // para cada frame do packet
             for frame in 0..<Int(frameCount) {
-                let value = self.signal(self.phase) * self.amplitude // senoide por enquanto
+                let value = self.signal(self.ariesPhase) * self.amplitude // senoide por enquanto
                 
-                self.phase = modulus(self.phase + phaseIncrement, TWO_PI)
+                self.ariesPhase = modulus(self.ariesPhase + phaseIncrement, TWO_PI)
                 
                 // para cada canal do frame (no caso é só 1 mesmo)
                 for buffer in audioBufferList {
@@ -174,10 +176,52 @@ class Synth {
         }
     }
     
-    func setupEngine() {
+    func setupTaurusOscillator(phaseIncrement: Float, signPhase: Float) -> AVAudioSourceNode {
+        return AVAudioSourceNode { (_, _, frameCount, bufferPointer) -> OSStatus in
+            
+            let audioBufferList = UnsafeMutableAudioBufferListPointer(bufferPointer)
+            
+            // para cada frame do packet
+            for frame in 0..<Int(frameCount) {
+                let value = self.signal(self.taurusPhase) * self.amplitude // senoide por enquanto
+                
+                self.taurusPhase = modulus(self.taurusPhase + phaseIncrement, TWO_PI)
+                
+                // para cada canal do frame (no caso é só 1 mesmo)
+                for buffer in audioBufferList {
+                    let samples: UnsafeMutableBufferPointer<Float> = UnsafeMutableBufferPointer(buffer)
+                    samples[frame] = value
+                }
+            }
+            return noErr
+        }
+    }
+    
+    func setupLibraOscillator(phaseIncrement: Float, signPhase: Float) -> AVAudioSourceNode {
+        return AVAudioSourceNode { (_, _, frameCount, bufferPointer) -> OSStatus in
+            
+            let audioBufferList = UnsafeMutableAudioBufferListPointer(bufferPointer)
+            
+            // para cada frame do packet
+            for frame in 0..<Int(frameCount) {
+                let value = self.signal(self.libraPhase) * self.amplitude // senoide por enquanto
+                
+                self.libraPhase = modulus(self.libraPhase + phaseIncrement, TWO_PI)
+                
+                // para cada canal do frame (no caso é só 1 mesmo)
+                for buffer in audioBufferList {
+                    let samples: UnsafeMutableBufferPointer<Float> = UnsafeMutableBufferPointer(buffer)
+                    samples[frame] = value
+                }
+            }
+            return noErr
+        }
+    }
+    
+    func setupEngine(mainMixer: AVAudioMixerNode) {
 //        self.engine.attach(oscillator)
 //        self.engine.connect(oscillator, to: engine.mainMixerNode, format: inputFormat)
-        self.engine.connect(engine.mainMixerNode, to: engine.outputNode, format: outputFormat)
+        self.engine.connect(mainMixer, to: engine.outputNode, format: outputFormat)
         self.engine.mainMixerNode.outputVolume = 0.5
         
 //        self.engine2.attach(oscillator)
@@ -208,7 +252,7 @@ class Synth {
                 //print("Aries off")
         }
             if (signs["Taurus"] == true){
-                
+
                 self.engine.attach(self.taurusNode)
                 self.engine.connect(self.taurusNode, to: engine.mainMixerNode, format: inputFormat)
                 self.frequency = self.pitch11
@@ -219,56 +263,56 @@ class Synth {
                 self.engine.detach(self.taurusNode)
                 //print("Taurus off")
         }
-            if (signs["Gemini"] == true){
-                
-                self.engine.attach(self.geminiNode)
-                self.engine.connect(self.geminiNode, to: engine.mainMixerNode, format: inputFormat)
-                self.frequency = self.pitch6
-                print("Gemini ((((((((((((( ON )))))))))))))")
-                self.geminiIncrement = (TWO_PI / sampleRate) * pitch6
-            }
-            else {
-                self.engine.detach(self.geminiNode)
-                //print("Gemini off")
-        }
-            if (signs["Cancer"] == true){
-                
-                self.engine.attach(self.cancerNode)
-                self.engine.connect(self.cancerNode, to: engine.mainMixerNode, format: inputFormat)
-                self.frequency = self.pitch9
-                print("Cancer ((((((((((((( ON )))))))))))))")
-                self.cancerIncrement = (TWO_PI / sampleRate) * pitch9
-            }
-            else {
-                self.engine.detach(self.cancerNode)
+//            if (signs["Gemini"] == true){
+//
+//                self.engine.attach(self.geminiNode)
+//                self.engine.connect(self.geminiNode, to: engine.mainMixerNode, format: inputFormat)
+//                self.frequency = self.pitch6
+//                print("Gemini ((((((((((((( ON )))))))))))))")
+//                self.geminiIncrement = (TWO_PI / sampleRate) * pitch6
+//            }
+//            else {
+//                self.engine.detach(self.geminiNode)
+//                //print("Gemini off")
+//        }
+//            if (signs["Cancer"] == true){
+//
+//                self.engine.attach(self.cancerNode)
+//                self.engine.connect(self.cancerNode, to: engine.mainMixerNode, format: inputFormat)
+//                self.frequency = self.pitch9
+//                print("Cancer ((((((((((((( ON )))))))))))))")
+//                self.cancerIncrement = (TWO_PI / sampleRate) * pitch9
+//            }
+//            else {
+//                self.engine.detach(self.cancerNode)
                 //print("Cancer off")
-        }
-            if (signs["Leo"] == true){
-                
-                self.engine.attach(self.leoNode)
-                self.engine.connect(self.leoNode, to: engine.mainMixerNode, format: inputFormat)
-                self.frequency = self.pitch10
-                print("Leo ((((((((((((( ON )))))))))))))")
-                self.leoIncrement = (TWO_PI / sampleRate) * pitch10
-            }
-            else {
-                self.engine.detach(self.leoNode)
-                //print("Leo off")
-        }
-            if (signs["Virgo"] == true){
-                
-                self.engine.attach(self.virgoNode)
-                self.engine.connect(self.virgoNode, to: engine.mainMixerNode, format: inputFormat)
-                self.frequency = self.pitch7
-                print("Virgo ((((((((((((( ON )))))))))))))")
-                self.virgoIncrement = (TWO_PI / sampleRate) * pitch7
-            }
-            else {
-                self.engine.detach(self.virgoNode)
-                //print("Virgo off")
-        }
+//        }
+//            if (signs["Leo"] == true){
+//
+//                self.engine.attach(self.leoNode)
+//                self.engine.connect(self.leoNode, to: engine.mainMixerNode, format: inputFormat)
+//                self.frequency = self.pitch10
+//                print("Leo ((((((((((((( ON )))))))))))))")
+//                self.leoIncrement = (TWO_PI / sampleRate) * pitch10
+//            }
+//            else {
+//                self.engine.detach(self.leoNode)
+//                //print("Leo off")
+//        }
+//            if (signs["Virgo"] == true){
+//
+//                self.engine.attach(self.virgoNode)
+//                self.engine.connect(self.virgoNode, to: engine.mainMixerNode, format: inputFormat)
+//                self.frequency = self.pitch7
+//                print("Virgo ((((((((((((( ON )))))))))))))")
+//                self.virgoIncrement = (TWO_PI / sampleRate) * pitch7
+//            }
+//            else {
+//                self.engine.detach(self.virgoNode)
+//                //print("Virgo off")
+//        }
             if (signs["Libra"] == true){
-                
+
                 self.engine.attach(self.libraNode)
                 self.engine.connect(self.libraNode, to: engine.mainMixerNode, format: inputFormat)
                 self.frequency = self.pitch8
@@ -279,68 +323,69 @@ class Synth {
                 self.engine.detach(self.libraNode)
                 //print("Libra off")
         }
-            if (signs["Scorpio"] == true){
-                
-                self.engine.attach(self.scorpioNode)
-                self.engine.connect(self.scorpioNode, to: engine.mainMixerNode, format: inputFormat)
-                self.frequency = self.pitch4
-                print("Scorpio ((((((((((((( ON )))))))))))))")
-                self.scorpioIncrement = (TWO_PI / sampleRate) * pitch4
-            }
-            else {
-                self.engine.detach(self.scorpioNode)
-                //print("Scorpio off")
-        }
-            if (signs["Sagittarius"] == true){
-                
-                self.engine.attach(self.sagNode)
-                self.engine.connect(self.sagNode, to: engine.mainMixerNode, format: inputFormat)
-                self.frequency = self.pitch5
-                print("Sagittarius ((((((((((((( ON )))))))))))))")
-                self.sagIncrement = (TWO_PI / sampleRate) * pitch5
-            }
-            else {
-                self.engine.detach(self.sagNode)
-                //print("Sagittarius off")
-        }
-            if (signs["Capricorn"] == true){
-                
-                self.engine.attach(self.capNode)
-                self.engine.connect(self.capNode, to: engine.mainMixerNode, format: inputFormat)
-                self.frequency = self.pitch2
-                print("Capricorn ((((((((((((( ON )))))))))))))")
-                self.capIncrement = (TWO_PI / sampleRate) * pitch2
-            }
-            else {
-                self.engine.detach(self.capNode)
-                //print("Capricorn off")
-        }
-            if (signs["Aquarius"] == true){
-                
-                self.engine.attach(self.aquaNode)
-                self.engine.connect(self.aquaNode, to: engine.mainMixerNode, format: inputFormat)
-                self.frequency = self.pitch3
-                print("Aquarius ((((((((((((( ON )))))))))))))")
-                self.aquaIncrement = (TWO_PI / sampleRate) * pitch3
-            }
-            else {
-                self.engine.detach(self.aquaNode)
-                //print("Aquarius off")
-        }
-            if (signs["Pisces"] == true){
-                
-                self.engine.attach(self.piscesNode)
-                self.engine.connect(self.piscesNode, to: engine.mainMixerNode, format: inputFormat)
-                self.frequency = self.pitch12
-                print("Pisces ((((((((((((( ON )))))))))))))")
-                self.piscesIncrement = (TWO_PI / sampleRate) * pitch12
-            }
-            else {
-                self.engine.detach(self.piscesNode)
-                //print("Pisces off")
-        }
+//            if (signs["Scorpio"] == true){
+//
+//                self.engine.attach(self.scorpioNode)
+//                self.engine.connect(self.scorpioNode, to: engine.mainMixerNode, format: inputFormat)
+//                self.frequency = self.pitch4
+//                print("Scorpio ((((((((((((( ON )))))))))))))")
+//                self.scorpioIncrement = (TWO_PI / sampleRate) * pitch4
+//            }
+//            else {
+//                self.engine.detach(self.scorpioNode)
+//                //print("Scorpio off")
+//        }
+//            if (signs["Sagittarius"] == true){
+//
+//                self.engine.attach(self.sagNode)
+//                self.engine.connect(self.sagNode, to: engine.mainMixerNode, format: inputFormat)
+//                self.frequency = self.pitch5
+//                print("Sagittarius ((((((((((((( ON )))))))))))))")
+//                self.sagIncrement = (TWO_PI / sampleRate) * pitch5
+//            }
+//            else {
+//                self.engine.detach(self.sagNode)
+//                //print("Sagittarius off")
+//        }
+//            if (signs["Capricorn"] == true){
+//
+//                self.engine.attach(self.capNode)
+//                self.engine.connect(self.capNode, to: engine.mainMixerNode, format: inputFormat)
+//                self.frequency = self.pitch2
+//                print("Capricorn ((((((((((((( ON )))))))))))))")
+//                self.capIncrement = (TWO_PI / sampleRate) * pitch2
+//            }
+//            else {
+//                self.engine.detach(self.capNode)
+//                //print("Capricorn off")
+//        }
+//            if (signs["Aquarius"] == true){
+//
+//                self.engine.attach(self.aquaNode)
+//                self.engine.connect(self.aquaNode, to: engine.mainMixerNode, format: inputFormat)
+//                self.frequency = self.pitch3
+//                print("Aquarius ((((((((((((( ON )))))))))))))")
+//                self.aquaIncrement = (TWO_PI / sampleRate) * pitch3
+//            }
+//            else {
+//                self.engine.detach(self.aquaNode)
+//                //print("Aquarius off")
+//        }
+//            if (signs["Pisces"] == true){
+//
+//                self.engine.attach(self.piscesNode)
+//                self.engine.connect(self.piscesNode, to: engine.mainMixerNode, format: inputFormat)
+//                self.frequency = self.pitch12
+//                print("Pisces ((((((((((((( ON )))))))))))))")
+//                self.piscesIncrement = (TWO_PI / sampleRate) * pitch12
+//            }
+//            else {
+//                self.engine.detach(self.piscesNode)
+//                //print("Pisces off")
+//        }
             
             //self.updatePhaseIncrement()
+            //self.engine.connect(engine.mainMixerNode, to: engine.outputNode, format: outputFormat)
             try self.engine.start()
 
             
